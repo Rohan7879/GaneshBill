@@ -109,16 +109,22 @@ function collectData() {
   let bhav5 = customRound((kilo5 / 20) * b5 || 0);
   let total = bhav1 + bhav2 + bhav3 + bhav4 + bhav5;
 
-  // --- UTRAI CALCULATION & DIFFERENCE ---
+  // --- NEW, SMARTER UTRAI CALCULATION ---
   let utrai = customRound(bharela * 3.5);
   let diff = (total % 10) - (utrai % 10);
   let finalutrai;
 
   if (diff > 5) {
+    // e.g., diff is 6. It's closer to subtract 4 than add 6.
     finalutrai = utrai + diff - 10;
   } else if (diff < -5) {
+    // e.g., diff is -6. It's closer to add 4 than subtract 6.
     finalutrai = utrai + diff + 10;
+  } else if (diff === 5) {
+    // Tie-breaker: When the difference is exactly 5, always subtract.
+    finalutrai = utrai + 5;
   } else {
+    // The difference is small (between -5 and 4), so a direct adjustment is best.
     finalutrai = utrai + diff;
   }
   const utraiDiff = finalutrai - utrai;
@@ -161,7 +167,7 @@ function collectData() {
     રૂપિયા_૫: bhav5,
     ટોટલ_રુપિયા: total,
     ઉતરાઈ: finalutrai,
-    utrai_diff: utraiDiff, // Store the utrai difference
+    utrai_diff: utraiDiff,
     ફાઇનલ: finaltotal,
     મેચ: matchMessage,
     rounding_diff: roundingDiff,
@@ -235,7 +241,7 @@ function displayData() {
     }
   }
 
-  // --- NEW: Display the utrai difference ---
+  // Display the utrai difference
   const utraiDiff = data.utrai_diff;
   const utraiDiffSpan = document.getElementById("utrai_diff_display");
   if (utraiDiff !== 0 && utraiDiffSpan) {
