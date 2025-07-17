@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Estimate Input Form</title>
+    <script src="bill.js"></script>
+    <link rel="stylesheet" href="html.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <img src="IMG-20250716-WA0121.jpg" alt="Company Logo" class="logo" />
+        <h1>Bill Details</h1>
+      </div>
+      <form id="estimateForm" onsubmit="collectData(); return false;">
+        <table>
+          <tr>
+            <td><strong>વેબ્રીજ વજન</strong></td>
+            <td colspan="4">
+              <input type="number" name="વેબ્રીજ_વજન" required />
+            </td>
+          </tr>
+          <tr>
+            <td><strong>બારદાન</strong></td>
+            <td colspan="4">
+              <strong>ભરેલા</strong>
+              <input type="number" id="bharela" name="ભરેલા" value="" />
+              +
+              <strong>ખાલી</strong>
+              <input type="number" id="khali" name="ખાલી" value="" />
+              <!-- = <span id="totalBardanLabel" style="font-weight: bold">0</span> -->
+            </td>
+          </tr>
+          <tr>
+            <td><strong>વકલ ૧</strong></td>
+            <td>કટ્ટા</td>
+            <td><input type="number" name="કટ્ટા ૧" value="" /></td>
+            <td>ભાવ</td>
+            <td><input type="number" name="ભાવ ૧" value="" /></td>
+          </tr>
+          <tr>
+            <td><strong>વકલ ૨</strong></td>
+            <td>કટ્ટા</td>
+            <td><input type="number" name="કટ્ટા ૨" value="" /></td>
+            <td>ભાવ</td>
+            <td><input type="number" name="ભાવ ૨" value="" /></td>
+          </tr>
+          <tr>
+            <td><strong>વકલ ૩</strong></td>
+            <td>કટ્ટા</td>
+            <td><input type="number" name="કટ્ટા ૩" value="" /></td>
+            <td>ભાવ</td>
+            <td><input type="number" name="ભાવ ૩" value="" /></td>
+          </tr>
+          <tr>
+            <td><strong>વકલ ૪</strong></td>
+            <td>કટ્ટા</td>
+            <td><input type="number" name="કટ્ટા ૪" value="" /></td>
+            <td>ભાવ</td>
+            <td><input type="number" name="ભાવ ૪" value="" /></td>
+          </tr>
+          <tr>
+            <td><strong>વકલ ૫</strong></td>
+            <td>કટ્ટા</td>
+            <td><input type="number" name="કટ્ટા ૫" value="" /></td>
+            <td>ભાવ</td>
+            <td><input type="number" name="ભાવ ૫" value="" /></td>
+          </tr>
+        </table>
+        <button type="submit">Generate Bill</button>
+      </form>
+    </div>
+  </body>
+</html>

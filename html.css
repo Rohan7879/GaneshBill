@@ -1,0 +1,448 @@
+/* --- Blue & White Professional Theme --- */
+
+/* General Body and Font Styling */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+    "Helvetica Neue", sans-serif;
+  background-color: #f8f9fa;
+  color: #343a40;
+  margin: 0;
+  padding: 20px;
+}
+
+/* Main Container Card */
+.container {
+  max-width: 850px;
+  margin: 20px auto;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 90, 158, 0.12);
+  border: 1px solid #dee2e6;
+  position: relative;
+  overflow: hidden;
+}
+
+/* --- Watermark Style --- */
+.container::before {
+  content: "";
+  background-image: url("IMG-20250716-WA0121.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 55%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.06;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* This ensures all content stays above the watermark */
+.header,
+form,
+.details-grid,
+.final-bill-table,
+.bill-section,
+.button-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Header with Logo --- */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.logo {
+  height: 55px;
+  width: auto;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.1));
+}
+
+h1 {
+  color: #005a9e;
+  margin: 0;
+  font-weight: 700;
+}
+
+/* --- Input Form Table Styling --- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table td {
+  padding: 16px 10px;
+  border: none;
+  border-bottom: 1px solid #e9ecef;
+  vertical-align: middle;
+}
+
+table td:first-child {
+  font-weight: 600;
+  color: #005a9e;
+  width: 120px;
+}
+
+table tr > td:nth-child(2),
+table tr > td:nth-child(4) {
+  width: 1%;
+  white-space: nowrap;
+}
+
+/* Input Field Styling */
+input[type="number"],
+input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #495057;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+/* Hide arrows from number inputs */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Specific fix for the 'bardan' inputs to prevent overlap */
+#bharela,
+#khali {
+  width: 80px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+input[type="number"]:focus,
+input[type="text"]:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+  outline: none;
+}
+
+/* Total Bags Span */
+#totalBardanLabel {
+  font-weight: bold;
+  color: #005a9e;
+  font-size: 1.1em;
+}
+
+/* --- Final Bill Page Specific Styles --- */
+
+/* Details Grid for Final Bill */
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.detail-item {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid #e9ecef;
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative; /* Needed for tooltip positioning */
+}
+.detail-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.detail-label {
+  font-size: 14px;
+  color: #6c757d;
+  margin-bottom: 8px;
+  display: block;
+  font-weight: 500;
+}
+
+.detail-value {
+  font-size: 1.4em;
+  font-weight: 700;
+  color: #005a9e;
+}
+
+.summary-item {
+  background: linear-gradient(135deg, #e7f3ff, #d0e7ff);
+  border: 1px solid #b3d7ff;
+}
+.summary-item .detail-label {
+  color: #005a9e;
+}
+.summary-item .detail-value {
+  font-size: 1.6em;
+}
+
+/* Style for the new average weight card */
+.avg-weight-item {
+  background-color: #fffbe6;
+  border-color: #ffeeba;
+}
+.avg-weight-item .detail-label,
+.avg-weight-item .detail-value {
+  color: #856404;
+}
+
+/* --- Tooltip Styles --- */
+.info-tooltip-container {
+  position: relative;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.info-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  border-radius: 50%;
+  background-color: #856404;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  user-select: none; /* Prevents text selection */
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 220px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px;
+  position: absolute;
+  z-index: 10;
+  bottom: 125%; /* Position above the icon */
+  left: 50%;
+  margin-left: -110px; /* Use half of the width to center */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+}
+
+/* Show on hover for desktop */
+.info-tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Show on click for mobile (toggled by JS) */
+.tooltip-text.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Totals Section */
+.bill-section {
+  margin-top: 20px;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.bill-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.bill-row:last-child {
+  border-bottom: none;
+}
+
+.bill-label {
+  font-weight: 600;
+  color: #495057;
+}
+
+.bill-value {
+  font-weight: 700;
+  color: #005a9e;
+}
+
+.summary-row {
+  background-color: #f8f9fa;
+  font-size: 1.1em;
+}
+
+.summary-row .bill-label {
+  color: #005a9e;
+}
+
+.final-total {
+  font-size: 1.4em;
+  background: #005a9e;
+  color: white;
+}
+
+.final-total .bill-label,
+.final-total .bill-value {
+  color: white;
+}
+
+.match-status {
+  justify-content: center;
+  font-weight: bold;
+  padding: 10px;
+  margin-top: 15px;
+  border-radius: 6px;
+}
+
+/* Final Bill Items Table */
+.final-bill-table {
+  text-align: center;
+}
+
+.final-bill-table th {
+  background-color: #f8f9fa;
+  color: #005a9e;
+  font-weight: 600;
+  padding: 14px 10px;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.final-bill-table td {
+  font-weight: 500;
+  color: #495057;
+}
+
+.final-bill-table td:first-child {
+  text-align: left;
+  color: #005a9e;
+}
+
+.final-bill-table tbody tr {
+  transition: background-color 0.3s;
+}
+
+.final-bill-table tbody tr:hover {
+  background-color: #e7f3ff;
+}
+
+/* Styles for Rounding Difference */
+.rounding-diff {
+  font-size: 0.8em;
+  font-style: italic;
+  margin-left: 5px;
+}
+.rounding-diff.positive {
+  color: #28a745; /* Green */
+}
+.rounding-diff.negative {
+  color: #dc3545; /* Red */
+}
+
+/* --- Button Styles --- */
+button,
+.button-container .button {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, #007bff, #005a9e);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 30px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+}
+
+button:hover,
+.button-container .button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #e9ecef;
+}
+
+.button-container .button {
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 12px;
+}
+
+.button-container .back-button {
+  background: #6c757d;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.button-container .back-button:hover {
+  background: #5a6268;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Responsive Adjustments for Mobile --- */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  .container {
+    padding: 20px;
+  }
+
+  /* Make watermark smaller and more subtle on mobile */
+  .container::before {
+    background-size: 100%;
+    opacity: 0.07;
+  }
+
+  h1 {
+    font-size: 1.5em;
+  }
+
+  .logo {
+    height: 40px;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
