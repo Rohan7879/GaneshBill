@@ -6,15 +6,34 @@
     <title>Final Bill</title>
     <script src="bill.js"></script>
     <link rel="stylesheet" href="html.css" />
+    <link rel="stylesheet" href="print.css" media="print" />
   </head>
   <body>
-    <div class="container">
+    <!-- Main Bill for Screen View -->
+    <div class="container" id="container-original">
+      <!-- Header for Print View -->
+      <div class="print-header">
+        <h2>Ganesh Agri Industries</h2>
+        <p>Mo: 7080904510</p>
+      </div>
+      <!-- Header for Screen View -->
       <div class="header">
         <img src="IMG-20250716-WA0121.jpg" alt="Company Logo" class="logo" />
         <h1>Final Bill</h1>
       </div>
+      <div class="bill-date" id="bill_datetime_display"></div>
 
-      <!-- Main Details Section -->
+      <div class="print-only-details">
+        <div class="detail-line">
+          <span class="detail-label">નામ (Name):</span>
+          <span class="detail-value-line"></span>
+        </div>
+        <div class="detail-line">
+          <span class="detail-label">દલાલ (Broker):</span>
+          <span class="detail-value-line"></span>
+        </div>
+      </div>
+
       <div class="details-grid">
         <div class="detail-item">
           <span class="detail-label">વેબ્રીજ વજન</span>
@@ -32,85 +51,54 @@
           <span class="detail-label">નેટ વજન</span>
           <span class="detail-value" id="નેટ_વજન">0</span>
         </div>
-        <!-- Average Weight Card with Tooltip -->
-        <div class="detail-item avg-weight-item">
-          <span class="detail-label">
-            સરેરાશ વજન (Avg. Wt.)
-            <span class="info-tooltip-container">
-              <span class="info-icon" id="avg_weight_info_icon">ⓘ</span>
-              <span class="tooltip-text" id="avg_weight_tooltip"></span>
-            </span>
-          </span>
-          <span class="detail-value" id="avg_weight_display">0</span>
-        </div>
       </div>
-
-      <!-- Items Table -->
       <table class="final-bill-table">
         <thead>
           <tr>
-            <th>વકલ (Item)</th>
-            <th>કટ્ટા (Bags)</th>
-            <th>કિલો (Kg)</th>
-            <th>ભાવ (Price)</th>
-            <th>રૂપિયા (Amount)</th>
+            <th>વકલ <span class="print-hide">(Item)</span></th>
+            <th>કટ્ટા <span class="print-hide">(Bags)</span></th>
+            <th>કિલો <span class="print-hide">(Kg)</span></th>
+            <th>ભાવ <span class="print-hide">(Price)</span></th>
+            <th>રૂપિયા <span class="print-hide">(Amount)</span></th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>વકલ ૧</td>
             <td id="કટ્ટા_૧">0</td>
-            <td>
-              <span id="કિલો_૧">0</span>
-              <span class="rounding-diff" id="rounding_diff_1"></span>
-            </td>
+            <td id="કિલો_૧">0</td>
             <td id="ભાવ_૧">0</td>
             <td id="રૂપિયા_૧">0</td>
           </tr>
           <tr>
             <td>વકલ ૨</td>
             <td id="કટ્ટા_૨">0</td>
-            <td>
-              <span id="કિલો_૨">0</span>
-              <span class="rounding-diff" id="rounding_diff_2"></span>
-            </td>
+            <td id="કિલો_૨">0</td>
             <td id="ભાવ_૨">0</td>
             <td id="રૂપિયા_૨">0</td>
           </tr>
           <tr>
             <td>વકલ ૩</td>
             <td id="કટ્ટા_૩">0</td>
-            <td>
-              <span id="કિલો_૩">0</span>
-              <span class="rounding-diff" id="rounding_diff_3"></span>
-            </td>
+            <td id="કિલો_૩">0</td>
             <td id="ભાવ_૩">0</td>
             <td id="રૂપિયા_૩">0</td>
           </tr>
           <tr>
             <td>વકલ ૪</td>
             <td id="કટ્ટા_૪">0</td>
-            <td>
-              <span id="કિલો_૪">0</span>
-              <span class="rounding-diff" id="rounding_diff_4"></span>
-            </td>
+            <td id="કિલો_૪">0</td>
             <td id="ભાવ_૪">0</td>
             <td id="રૂપિયા_૪">0</td>
           </tr>
           <tr>
             <td>વકલ ૫</td>
             <td id="કટ્ટા_૫">0</td>
-            <td>
-              <span id="કિલો_૫">0</span>
-              <span class="rounding-diff" id="rounding_diff_5"></span>
-            </td>
-            <td id="ભાવ_૫">0</td>
+            <td id="કિલો_૫">0</td>
             <td id="રૂપિયા_૫">0</td>
           </tr>
         </tbody>
       </table>
-
-      <!-- Totals Section -->
       <div class="bill-section totals-section">
         <div class="bill-row">
           <span class="bill-label">ટોટલ રૂપિયા</span>
@@ -118,10 +106,7 @@
         </div>
         <div class="bill-row">
           <span class="bill-label">ઉતરાઈ</span>
-          <span class="bill-value">
-            <span id="ઉતરાઈ">0</span>
-            <span id="utrai_diff_display" class="rounding-diff"></span>
-          </span>
+          <span class="bill-value" id="ઉતરાઈ">0</span>
         </div>
         <div class="bill-row summary-row final-total">
           <span class="bill-label">ફાઇનલ ટોટલ</span>
@@ -131,12 +116,15 @@
           <span id="મેચ"></span>
         </div>
       </div>
-
-      <!-- Button Container -->
       <div class="button-container">
         <a href="index.html" class="button back-button">Go Back & Edit</a>
-        <button onclick="window.print()" class="button">Print Bill</button>
+        <button onclick="window.print()" class="button" id="printButton">Print Bill</button>
       </div>
+    </div>
+
+    <!-- Second Bill for Print View Only -->
+    <div class="container print-copy" id="container-copy">
+      <!-- Content will be copied here by JavaScript -->
     </div>
   </body>
 </html>

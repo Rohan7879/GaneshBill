@@ -41,11 +41,15 @@ body {
 
 /* This ensures all content stays above the watermark */
 .header,
+.print-header,
 form,
 .details-grid,
 .final-bill-table,
 .bill-section,
-.button-container {
+.button-container,
+.bill-date,
+.print-only-details,
+.print-signature {
   position: relative;
   z-index: 1;
 }
@@ -56,7 +60,7 @@ form,
   align-items: center;
   justify-content: center;
   gap: 15px;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   padding-bottom: 20px;
   border-bottom: 1px solid #e9ecef;
 }
@@ -71,6 +75,26 @@ h1 {
   color: #005a9e;
   margin: 0;
   font-weight: 700;
+}
+
+/* --- Hide Print Header on Screen --- */
+.print-header {
+  display: none;
+}
+
+/* --- Date Display Style --- */
+.bill-date {
+  text-align: right;
+  font-size: 1.1em;
+  font-weight: 600;
+  color: #6c757d;
+  margin-bottom: 20px;
+}
+
+/* --- Hide Print-Only Details on Screen --- */
+.print-only-details,
+.print-signature {
+  display: none;
 }
 
 /* --- Input Form Table Styling --- */
@@ -101,7 +125,8 @@ table tr > td:nth-child(4) {
 
 /* Input Field Styling */
 input[type="number"],
-input[type="text"] {
+input[type="text"],
+input[type="date"] {
   width: 100%;
   padding: 12px;
   border: 1px solid #ced4da;
@@ -131,7 +156,8 @@ input[type="number"] {
 }
 
 input[type="number"]:focus,
-input[type="text"]:focus {
+input[type="text"]:focus,
+input[type="date"]:focus {
   border-color: #007bff;
   box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
   outline: none;
@@ -163,7 +189,6 @@ input[type="text"]:focus {
   text-align: center;
   border: 1px solid #e9ecef;
   transition: transform 0.3s, box-shadow 0.3s;
-  position: relative; /* Needed for tooltip positioning */
 }
 .detail-item:hover {
   transform: translateY(-5px);
@@ -195,7 +220,7 @@ input[type="text"]:focus {
   font-size: 1.6em;
 }
 
-/* Style for the new average weight card */
+/* Style for the average weight card */
 .avg-weight-item {
   background-color: #fffbe6;
   border-color: #ffeeba;
@@ -203,68 +228,6 @@ input[type="text"]:focus {
 .avg-weight-item .detail-label,
 .avg-weight-item .detail-value {
   color: #856404;
-}
-
-/* --- Tooltip Styles --- */
-.info-tooltip-container {
-  position: relative;
-  display: inline-block;
-  margin-left: 5px;
-}
-
-.info-icon {
-  display: inline-block;
-  width: 18px;
-  height: 18px;
-  line-height: 18px;
-  border-radius: 50%;
-  background-color: #856404;
-  color: white;
-  font-size: 12px;
-  font-weight: bold;
-  text-align: center;
-  cursor: pointer;
-  user-select: none; /* Prevents text selection */
-}
-
-.tooltip-text {
-  visibility: hidden;
-  width: 220px;
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 8px;
-  position: absolute;
-  z-index: 10;
-  bottom: 125%; /* Position above the icon */
-  left: 50%;
-  margin-left: -110px; /* Use half of the width to center */
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.tooltip-text::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #333 transparent transparent transparent;
-}
-
-/* Show on hover for desktop */
-.info-tooltip-container:hover .tooltip-text {
-  visibility: visible;
-  opacity: 1;
-}
-
-/* Show on click for mobile (toggled by JS) */
-.tooltip-text.show {
-  visibility: visible;
-  opacity: 1;
 }
 
 /* Totals Section */
@@ -418,6 +381,11 @@ button:hover,
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
+/* Hide the second copy on the screen by default */
+.print-copy {
+  display: none;
+}
+
 /* --- Responsive Adjustments for Mobile --- */
 @media (max-width: 600px) {
   body {
@@ -444,5 +412,183 @@ button:hover,
 
   .details-grid {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* --- Black & White Print Styles --- */
+@media print {
+  @page {
+    size: A4;
+    margin: 0.5cm;
+  }
+
+  body {
+    background-color: #ffffff;
+    font-family: serif;
+    font-size: 8pt;
+    color: #000000;
+    margin: 0;
+    padding: 0;
+  }
+
+  .button-container,
+  .match-status,
+  .logo,
+  .info-tooltip-container,
+  .rounding-diff,
+  .print-hide,
+  .header {
+    display: none;
+  }
+
+  .container {
+    width: 100%;
+    height: auto;
+    box-shadow: none;
+    border: 1px solid #aaa;
+    padding: 8px;
+    margin: 0 0 1cm 0; /* Add margin to the bottom of the first copy */
+    page-break-after: avoid;
+    page-break-inside: avoid;
+    box-sizing: border-box;
+  }
+
+  .print-copy {
+    display: block !important;
+    margin: 0;
+  }
+
+  .container::before {
+    display: none;
+  }
+
+  .detail-value,
+  .detail-label,
+  h1,
+  .final-bill-table td,
+  .final-bill-table th,
+  .bill-label,
+  .bill-value,
+  .summary-row .bill-label {
+    color: #000000 !important;
+  }
+
+  /* --- Show and Style Print Header --- */
+  .print-header {
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .print-header h2 {
+    font-size: 14pt;
+    margin: 0;
+  }
+  .print-header p {
+    font-size: 10pt;
+    margin: 0;
+  }
+
+  .bill-date {
+    text-align: right;
+    font-size: 11pt;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  /* --- Show and Style Print-Only Details --- */
+  .print-only-details {
+    display: block;
+    margin: 10px 0;
+    padding: 5px 0;
+  }
+  .company-info {
+    text-align: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+  }
+  .print-company-name {
+    font-size: 12pt;
+    font-weight: bold;
+    margin: 0;
+  }
+  .print-contact-info {
+    font-size: 9pt;
+  }
+  .detail-line {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3px;
+    font-size: 9pt;
+  }
+  .detail-line:last-child {
+    margin-bottom: 0;
+  }
+  .detail-label {
+    font-weight: bold;
+    margin-right: 8px;
+    color: #000 !important;
+  }
+  .detail-value-line {
+    flex-grow: 1;
+    border-bottom: 1px solid #000;
+    height: 1.2em;
+  }
+
+  /* --- Add Original/Duplicate Labels --- */
+  #container-original::after {
+    content: "Original";
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    border: 1px solid #000;
+    padding: 2px 4px;
+    font-size: 7pt;
+    font-weight: bold;
+  }
+  #container-copy::after {
+    content: "Duplicate";
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    border: 1px solid #000;
+    padding: 2px 4px;
+    font-size: 7pt;
+    font-weight: bold;
+  }
+
+  .final-total {
+    background: transparent !important;
+    border-top: 2px double #000;
+    border-bottom: 2px double #000;
+    padding: 4px 0;
+  }
+
+  .final-total .bill-label,
+  .final-total .bill-value {
+    color: #000000 !important;
+  }
+
+  .detail-item,
+  .summary-item,
+  .avg-weight-item {
+    background: transparent !important;
+    border: 1px solid #ccc;
+    padding: 4px;
+  }
+
+  .details-grid {
+    gap: 5px;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+  }
+
+  .final-bill-table th {
+    padding: 4px 8px;
+  }
+
+  table td,
+  .bill-row {
+    padding: 3px 6px;
   }
 }
